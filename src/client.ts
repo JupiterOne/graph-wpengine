@@ -1,4 +1,4 @@
-import http from 'http';
+import https from 'https';
 
 import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
 
@@ -47,23 +47,29 @@ export class APIClient {
     // TODO make the most light-weight request possible to validate
     // authentication works with the provided credentials, throw an err if
     // authentication fails
+    const options = {
+      host: 'api.wpengineapi.com',
+      port: 443,
+      path: '/v1/sites',
+      agent: false,
+      timeout: 10,
+      headers: {
+        Authorization:
+          'Basic ' +
+          Buffer.from(
+            this.config.clientId + ':' + this.config.clientSecret,
+          ).toString('base64'),
+      },
+    };
+
     const request = new Promise<void>((resolve, reject) => {
-      http.get(
-        {
-          hostname: 'localhost',
-          port: 443,
-          path: '/api/v1/some/endpoint?limit=1',
-          agent: false,
-          timeout: 10,
-        },
-        (res) => {
-          if (res.statusCode !== 200) {
-            reject(new Error('Provider authentication failed'));
-          } else {
-            resolve();
-          }
-        },
-      );
+      https.get(options, (res) => {
+        if (res.statusCode !== 200) {
+          reject(new Error('Provider authentication failed'));
+        } else {
+          resolve();
+        }
+      });
     });
 
     try {
@@ -71,7 +77,7 @@ export class APIClient {
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         cause: err,
-        endpoint: 'https://localhost/api/v1/some/endpoint?limit=1',
+        endpoint: 'https://api.wepengineapi.com/v1/sites',
         status: err.status,
         statusText: err.statusText,
       });
