@@ -57,7 +57,7 @@ export class APIClient {
         Authorization:
           'Basic ' +
           Buffer.from(
-            this.config.clientId + ':' + this.config.clientSecret,
+            this.config.wpEngineUsername + ':' + this.config.wpEnginePassword,
           ).toString('base64'),
       },
     };
