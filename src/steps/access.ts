@@ -132,7 +132,7 @@ export const accessSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: 'acme_user',
       },
     ],
-    dependsOn: ['fetch-account'],
+    dependsOn: [],
     executionHandler: fetchUsers,
   },
 ];

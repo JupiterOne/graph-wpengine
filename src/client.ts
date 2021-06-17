@@ -1,8 +1,14 @@
-import https from 'https';
+import fetch, { Response } from 'node-fetch';
 
-import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationProviderAPIError,
+  IntegrationValidationError,
+} from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
+import { WpEngineUser } from './types';
+
+// import { WpEngineUser } from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -43,45 +49,46 @@ export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
 export class APIClient {
   constructor(readonly config: IntegrationConfig) {}
 
-  public async verifyAuthentication(): Promise<void> {
-    // TODO make the most light-weight request possible to validate
-    // authentication works with the provided credentials, throw an err if
-    // authentication fails
-    const options = {
-      host: 'api.wpengineapi.com',
-      port: 443,
-      path: '/v1/sites',
-      agent: false,
-      timeout: 10,
+  private withBaseUri(path: string): string {
+    return `https://api.wpengineapi.com/v1/${path}`;
+  }
+
+  private async request(
+    uri: string,
+    method: 'GET' | 'HEAD' = 'GET',
+  ): Promise<Response> {
+    const response = await fetch(uri, {
+      method,
       headers: {
-        Authorization:
-          'Basic ' +
-          Buffer.from(
-            this.config.wpEngineUsername + ':' + this.config.wpEnginePassword,
-          ).toString('base64'),
+        Accept: 'application/json',
+        Authorization: `Basic ${Buffer.from(
+          `${this.config.wpEngineUsername}:${this.config.wpEnginePassword}`,
+        ).toString('base64')}`,
       },
-    };
-
-    const request = new Promise<void>((resolve, reject) => {
-      https.get(options, (res) => {
-        if (res.statusCode !== 200) {
-          reject(new Error('Provider authentication failed'));
-        } else {
-          resolve();
-        }
-      });
     });
-
-    try {
-      await request;
-    } catch (err) {
-      throw new IntegrationProviderAuthenticationError({
-        cause: err,
-        endpoint: 'https://api.wepengineapi.com/v1/sites',
-        status: err.status,
-        statusText: err.statusText,
+    if (!response.ok) {
+      throw new IntegrationProviderAPIError({
+        endpoint: uri,
+        status: response.status,
+        statusText: response.statusText,
       });
     }
+    return response;
+  }
+
+  public async verifyAuthentication(): Promise<void> {
+    const sitesApiRoute = this.withBaseUri('sites');
+    try {
+      await this.request(sitesApiRoute, 'GET');
+    } catch (err) {
+      const errMessage = `Error occurred validating invocation at ${sitesApiRoute} (code=${err.code}, message=${err.message})`;
+      throw new IntegrationValidationError(errMessage);
+    }
+  }
+
+  public async getUser(): Promise<WpEngineUser> {
+    const response = await this.request(this.withBaseUri('user'));
+    return response.json();
   }
 
   /**
