@@ -6,12 +6,12 @@ import {
 
 import { IntegrationConfig } from '../config';
 
-export const ACCOUNT_ENTITY_KEY = 'entity:account';
+export const USER_ENTITY_KEY = 'entity:user';
 
-export async function fetchAccountDetails({
+export async function fetchUserDetails({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const accountEntity = await jobState.addEntity(
+  const userEntity = await jobState.addEntity(
     createIntegrationEntity({
       entityData: {
         source: {
@@ -31,10 +31,10 @@ export async function fetchAccountDetails({
     }),
   );
 
-  await jobState.setData(ACCOUNT_ENTITY_KEY, accountEntity);
+  await jobState.setData(USER_ENTITY_KEY, userEntity);
 }
 
-export const accountSteps: IntegrationStep<IntegrationConfig>[] = [
+export const userSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: 'fetch-account',
     name: 'Fetch Account Details',
@@ -47,6 +47,6 @@ export const accountSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
-    executionHandler: fetchAccountDetails,
+    executionHandler: fetchUserDetails,
   },
 ];
