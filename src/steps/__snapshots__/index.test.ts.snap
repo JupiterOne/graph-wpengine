@@ -48,12 +48,22 @@ Object {
       "name": "j1inc",
     },
   ],
-  "collectedRelationships": Array [],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "_key": "3937869a-09a0-4198-a1c7-d70c451c24fc|has|wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_toEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_type": "wp_engine_user_has_account",
+      "displayName": "HAS",
+    },
+  ],
   "encounteredTypes": Array [
     "wp_engine_user",
     "wp_engine_account",
+    "wp_engine_user_has_account",
   ],
   "numCollectedEntities": 2,
-  "numCollectedRelationships": 0,
+  "numCollectedRelationships": 1,
 }
 `;
