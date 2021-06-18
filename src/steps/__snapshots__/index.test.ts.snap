@@ -27,12 +27,33 @@ Object {
       "name": "Stefan Virag",
       "username": "stefan@creativice.com",
     },
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            "name": "j1inc",
+          },
+        },
+      ],
+      "_type": "wp_engine_account",
+      "createdOn": undefined,
+      "displayName": "j1inc",
+      "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "name": "j1inc",
+    },
   ],
   "collectedRelationships": Array [],
   "encounteredTypes": Array [
     "wp_engine_user",
+    "wp_engine_account",
   ],
-  "numCollectedEntities": 1,
+  "numCollectedEntities": 2,
   "numCollectedRelationships": 0,
 }
 `;

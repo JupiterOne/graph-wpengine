@@ -2,6 +2,7 @@ import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-test
 
 import { IntegrationConfig } from '../config';
 import { fetchUserDetails } from './user';
+import { fetchAccounts } from './account';
 import { integrationConfig } from '../../test/config';
 
 test('should collect data', async () => {
@@ -12,6 +13,7 @@ test('should collect data', async () => {
   // Simulates dependency graph execution.
   // See https://github.com/JupiterOne/sdk/issues/262.
   await fetchUserDetails(context);
+  await fetchAccounts(context);
 
   // Review snapshot, failure is a regression
   expect({
@@ -22,11 +24,19 @@ test('should collect data', async () => {
     encounteredTypes: context.jobState.encounteredTypes,
   }).toMatchSnapshot();
 
-  const users = context.jobState.collectedEntities.filter((e) =>
+  const user = context.jobState.collectedEntities.filter((e) =>
     e._class.includes('User'),
   );
-  expect(users.length).toBeGreaterThan(0);
-  expect(users).toMatchGraphObjectSchema({
+  expect(user.length).toBeGreaterThan(0);
+  expect(user).toMatchGraphObjectSchema({
     _class: ['User'],
+  });
+
+  const accounts = context.jobState.collectedEntities.filter((e) =>
+    e._class.includes('Account'),
+  );
+  expect(accounts.length).toBeGreaterThan(0);
+  expect(accounts).toMatchGraphObjectSchema({
+    _class: ['Account'],
   });
 });
