@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should collect data 1`] = `
+exports[`#fetchAccounts should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
       "_class": Array [
         "User",
       ],
-      "_key": "3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -51,8 +51,8 @@ Object {
   "collectedRelationships": Array [
     Object {
       "_class": "HAS",
-      "_fromEntityKey": "3937869a-09a0-4198-a1c7-d70c451c24fc",
-      "_key": "3937869a-09a0-4198-a1c7-d70c451c24fc|has|wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_fromEntityKey": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc|has|wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
       "_toEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
       "_type": "wp_engine_user_has_account",
       "displayName": "HAS",
