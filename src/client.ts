@@ -7,24 +7,14 @@ import {
 } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
-import { WpEngineUser } from './types';
+import {
+  WpEngineUser,
+  PaginatedResource,
+  PageIteratee,
+  WpEngineAccount,
+} from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
-
-// Providers often supply types with their API libraries.
-
-// Those can be useful to a degree, but often they're just full of optional
-// values. Understanding the response data may be more reliably accomplished by
-// reviewing the API response recordings produced by testing the wrapper client
-// (below). However, when there are no types provided, it is necessary to define
-// opaque types for each resource, to communicate the records that are expected
-// to come from an endpoint and are provided to iterating functions.
-
-/*
-import { Opaque } from 'type-fest';
-export type AcmeUser = Opaque<any, 'AcmeUser'>;
-export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
-*/
 
 /**
  * An APIClient maintains authentication state and provides an interface to
@@ -36,6 +26,8 @@ export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
  */
 export class APIClient {
   constructor(readonly config: IntegrationConfig) {}
+
+  private readonly paginateEntitiesPerPage = 10;
 
   private withBaseUri(path: string): string {
     return `https://api.wpengineapi.com/v1/${path}`;
@@ -64,31 +56,25 @@ export class APIClient {
     return response;
   }
 
-  // private async paginatedRequest<T>(
-  //   uri: string,
-  //   pageIteratee: PageIteratee<T>,
-  // ): Promise<void> {
-  //   let currentPage = 0;
-  //   let body: PaginatedResource<T>;
+  private async paginatedRequest<T>(
+    uri: string,
+    pageIteratee: PageIteratee<T>,
+  ): Promise<void> {
+    let offset = 0;
+    let body: PaginatedResource<T>;
 
-  //   do {
-  //     const endpoint = this.withBaseUri(
-  //       `${uri}?page=${currentPage}&size=${this.paginateEntitiesPerPage}`,
-  //     );
-  //     this.logger.debug(
-  //       {
-  //         endpoint,
-  //       },
-  //       'Calling API endpoint.',
-  //     );
-  //     const response = await this.request(endpoint, 'GET');
-  //     body = await response.json();
+    do {
+      const endpoint = this.withBaseUri(
+        `${uri}?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
+      );
+      const response = await this.request(endpoint, 'GET');
+      body = await response.json();
 
-  //     await pageIteratee(body.resources);
+      await pageIteratee(body.results);
 
-  //     currentPage++;
-  //   } while (body.page?.totalPages && currentPage < body.page.totalPages);
-  // }
+      offset++;
+    } while (body.count && offset < body.count);
+  }
 
   public async verifyAuthentication(): Promise<void> {
     const sitesApiRoute = this.withBaseUri('sites');
@@ -108,20 +94,23 @@ export class APIClient {
     return response.json();
   }
 
-  // /**
-  //  * Iterates each user resource in the provider.
-  //  *
-  //  * @param iteratee receives each resource to produce entities/relationships
-  //  */
-  // public async iterateUsers(
-  //   iteratee: ResourceIteratee<InsightVMUser>,
-  // ): Promise<void> {
-  //   await this.paginatedRequest<InsightVMUser>('users', async (users) => {
-  //     for (const user of users) {
-  //       await iteratee(user);
-  //     }
-  //   });
-  // }
+  /**
+   * Iterates each user resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateAccounts(
+    iteratee: ResourceIteratee<WpEngineAccount>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineAccount>(
+      'accounts',
+      async (accounts) => {
+        for (const account of accounts) {
+          await iteratee(account);
+        }
+      },
+    );
+  }
 }
 
 export function createAPIClient(config: IntegrationConfig): APIClient {

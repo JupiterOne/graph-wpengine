@@ -6,9 +6,7 @@ import {
 
 import { IntegrationConfig } from '../config';
 import { createAPIClient } from '../client';
-import { entities, steps } from '../constants';
-
-export const USER_ENTITY_KEY = 'entity:user';
+import { USER_ENTITY_KEY, entities, steps } from '../constants';
 
 export async function fetchUserDetails({
   instance,
