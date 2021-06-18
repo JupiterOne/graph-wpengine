@@ -28,6 +28,7 @@ export async function fetchUserDetails({
           _class: entities.USER._class,
           name: `${user.first_name} ${user.last_name}`,
           username: user.email,
+          email: user.email,
         },
       },
     }),
