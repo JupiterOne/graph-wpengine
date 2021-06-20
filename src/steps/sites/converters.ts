@@ -14,7 +14,6 @@ export function createSiteEntity(data: WpEngineSite) {
         _class: Entities.SITE._class,
         _type: Entities.SITE._type,
         _key: getSiteKey(data.id),
-        id: data.id,
         name: data.name,
       },
     },
