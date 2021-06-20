@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createSiteEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Host",
+  ],
+  "_key": "wp_engine_site:some-id-here",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "account": Object {
+          "id": "some-id-here",
+        },
+        "id": "some-id-here",
+        "installs": Array [
+          Object {
+            "cname": "sample.hostname.com",
+            "environment": "sampleEnvironment",
+            "id": "some-id-here",
+            "is_multistate": false,
+            "name": "exampleName",
+            "php_version": "1.0",
+          },
+        ],
+        "name": "Doe",
+      },
+    },
+  ],
+  "_type": "wp_engine_site",
+  "createdOn": undefined,
+  "displayName": "Doe",
+  "id": "some-id-here",
+  "name": "Doe",
+}
+`;

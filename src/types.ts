@@ -18,3 +18,20 @@ export type WpEngineAccount = {
   id: string;
   name: string;
 };
+
+export type WpEngineSite = {
+  id: string;
+  name: string;
+  account: {
+    id: string;
+  };
+  // will probably convert this to 'WpEngineInstall' type once ingested
+  installs: {
+    id: string;
+    name: string;
+    environment: string;
+    cname: string;
+    php_version: string;
+    is_multistate: boolean;
+  }[];
+};
