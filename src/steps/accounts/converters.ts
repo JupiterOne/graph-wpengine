@@ -14,7 +14,6 @@ export function createAccountEntity(data: WpEngineAccount) {
         _class: Entities.ACCOUNT._class,
         _type: Entities.ACCOUNT._type,
         _key: getAccountKey(data.id),
-        id: data.id,
         name: data.name,
       },
     },

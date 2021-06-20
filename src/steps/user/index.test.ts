@@ -39,6 +39,7 @@ describe('#fetchUser', () => {
     const users = context.jobState.collectedEntities.filter((e) =>
       e._class.includes('User'),
     );
+
     expect(users.length).toBeGreaterThan(0);
     expect(users).toMatchGraphObjectSchema({
       _class: ['User'],

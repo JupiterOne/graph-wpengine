@@ -52,7 +52,6 @@ describe('#fetchAccounts', () => {
             items: { type: 'object' },
           },
           _type: { const: 'wp_engine_account' },
-          id: { type: 'string' },
           name: { type: 'string' },
         },
       },
