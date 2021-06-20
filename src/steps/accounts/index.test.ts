@@ -27,8 +27,6 @@ describe('#fetchAccounts', () => {
       instanceConfig: integrationConfig,
     });
 
-    // we also need to call fetchUser first so that relationship can be
-    // built and so that we can test it
     await fetchUser(context);
     await fetchAccounts(context);
 
@@ -39,8 +37,6 @@ describe('#fetchAccounts', () => {
       collectedRelationships: context.jobState.collectedRelationships,
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
-
-    console.log('context.jobsate', context.jobState.collectedEntities);
 
     const accounts = context.jobState.collectedEntities.filter((e) =>
       e._class.includes('Account'),
@@ -56,7 +52,6 @@ describe('#fetchAccounts', () => {
             items: { type: 'object' },
           },
           _type: { const: 'wp_engine_account' },
-          // We want to make sure we include every field from converter.ts
           id: { type: 'string' },
           name: { type: 'string' },
         },
@@ -77,7 +72,6 @@ describe('#fetchAccounts', () => {
             items: { type: 'object' },
           },
           _type: { const: 'wp_engine_user' },
-          // We want to make sure we include every field from converter.ts
           name: { type: 'string' },
           username: { type: 'string' },
           email: { type: 'string' },

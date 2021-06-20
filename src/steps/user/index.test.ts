@@ -26,7 +26,6 @@ describe('#fetchUser', () => {
       instanceConfig: integrationConfig,
     });
 
-    // fetchUser doesn't depend on anything, so we can just call that
     await fetchUser(context);
 
     expect({
@@ -37,7 +36,6 @@ describe('#fetchUser', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    // Let's call it users still because it's an array (I know there's only one entity inside :)
     const users = context.jobState.collectedEntities.filter((e) =>
       e._class.includes('User'),
     );
@@ -52,7 +50,6 @@ describe('#fetchUser', () => {
             items: { type: 'object' },
           },
           _type: { const: 'wp_engine_user' },
-          // We want to make sure we include every field from converter.ts
           name: { type: 'string' },
           username: { type: 'string' },
           email: { type: 'string' },
