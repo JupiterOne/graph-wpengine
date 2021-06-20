@@ -7,12 +7,7 @@ import {
 export const USER_ENTITY_KEY = 'entity:user';
 
 export enum IntegrationSteps {
-  // steps names should just be resources names (plural)
-  // FETCH_GROUPS ==> GROUPS
-
-  // If there's only ever going to be a single user, we can use singular name here
   USER = 'fetch-user',
-  // Since there can be multiple accounts, we'll use plural
   ACCOUNTS = 'fetch-accounts',
 }
 
