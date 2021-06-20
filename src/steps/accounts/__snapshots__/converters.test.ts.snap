@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createAccountEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Account",
+  ],
+  "_key": "wp_engine_account:some-id-here",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "id": "some-id-here",
+        "name": "exampleName",
+      },
+    },
+  ],
+  "_type": "wp_engine_account",
+  "createdOn": undefined,
+  "displayName": "exampleName",
+  "id": "some-id-here",
+  "name": "exampleName",
+}
+`;
