@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createInstallEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Application",
+  ],
+  "_key": "wp_engine_install:some-id-here",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "account": Object {
+          "id": "some-id-here",
+        },
+        "cname": "sample.hostname.com",
+        "environment": "sample-environment",
+        "id": "some-id-here",
+        "is_multistate": false,
+        "name": "Doe",
+        "php_version": "sample-php-version",
+        "primary_domain": "sample.primary-domain.com",
+        "site": Object {
+          "id": "some-id-here",
+        },
+        "stable_ips": Array [
+          "sample-ip-1",
+          "sample-ip-2",
+        ],
+        "status": "sample-status",
+      },
+    },
+  ],
+  "_type": "wp_engine_install",
+  "active": undefined,
+  "createdOn": undefined,
+  "displayName": "Doe",
+  "id": "some-id-here",
+  "name": "Doe",
+  "status": "sample-status",
+}
+`;

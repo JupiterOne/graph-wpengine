@@ -3,9 +3,10 @@ import {
   Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig } from '../../config';
-import { fetchSites } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
+import { fetchInstalls } from '.';
+import { fetchSites } from '../sites';
 import { fetchAccounts } from '../accounts';
 
 describe('#fetchSite', () => {
@@ -29,6 +30,7 @@ describe('#fetchSite', () => {
 
     await fetchAccounts(context);
     await fetchSites(context);
+    await fetchInstalls(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -71,6 +73,25 @@ describe('#fetchSite', () => {
             items: { type: 'object' },
           },
           _type: { const: 'wp_engine_account' },
+          name: { type: 'string' },
+        },
+      },
+    });
+
+    const installs = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('Application'),
+    );
+    expect(installs.length).toBeGreaterThan(0);
+    expect(installs).toMatchGraphObjectSchema({
+      _class: ['Application'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          _type: { const: 'wp_engine_install' },
           name: { type: 'string' },
         },
       },
