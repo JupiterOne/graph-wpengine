@@ -85,6 +85,10 @@ Object {
       ],
       "_type": "wp_engine_install",
       "active": true,
+      "alternateURLs": Array [
+        "jupiterone.wpengine.com",
+        "jupiterone.com",
+      ],
       "createdOn": undefined,
       "displayName": "jupiterone",
       "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",

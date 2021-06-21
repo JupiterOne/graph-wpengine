@@ -33,6 +33,10 @@ Object {
   ],
   "_type": "wp_engine_install",
   "active": undefined,
+  "alternateURLs": Array [
+    "sample.hostname.com",
+    "sample.primary-domain.com",
+  ],
   "createdOn": undefined,
   "displayName": "Doe",
   "id": "some-id-here",

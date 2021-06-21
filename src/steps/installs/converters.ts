@@ -15,6 +15,7 @@ export function createInstallEntity(data: WpEngineInstall) {
         _type: Entities.INSTALL._type,
         _key: getInstallKey(data.id),
         name: data.name,
+        alternateURLs: [data.cname, data.primary_domain],
       },
     },
   });
