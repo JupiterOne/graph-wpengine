@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createUserEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "User",
+  ],
+  "_key": "wp_engine_user:some-id-here",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "email": "john@example.com",
+        "first_name": "John",
+        "id": "some-id-here",
+        "last_name": "Doe",
+      },
+    },
+  ],
+  "_type": "wp_engine_user",
+  "createdOn": undefined,
+  "displayName": "John Doe",
+  "email": "john@example.com",
+  "id": "some-id-here",
+  "name": "John Doe",
+  "username": "john@example.com",
+}
+`;

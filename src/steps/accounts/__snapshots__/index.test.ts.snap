@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchAccounts should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "email": "stefan@creativice.com",
+            "first_name": "Stefan",
+            "id": "3937869a-09a0-4198-a1c7-d70c451c24fc",
+            "last_name": "Virag",
+          },
+        },
+      ],
+      "_type": "wp_engine_user",
+      "createdOn": undefined,
+      "displayName": "Stefan Virag",
+      "email": "stefan@creativice.com",
+      "id": "3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "name": "Stefan Virag",
+      "username": "stefan@creativice.com",
+    },
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            "name": "j1inc",
+          },
+        },
+      ],
+      "_type": "wp_engine_account",
+      "createdOn": undefined,
+      "displayName": "j1inc",
+      "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "name": "j1inc",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc|has|wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_toEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_type": "wp_engine_user_has_account",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "wp_engine_user",
+    "wp_engine_account",
+    "wp_engine_user_has_account",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;
