@@ -99,6 +99,7 @@ The following entities are created:
 | Resources | Entity `_type`      | Entity `_class` |
 | --------- | ------------------- | --------------- |
 | Account   | `wp_engine_account` | `Account`       |
+| Install   | `wp_engine_install` | `Application`   |
 | Site      | `wp_engine_site`    | `Host`          |
 | User      | `wp_engine_user`    | `User`          |
 
@@ -108,7 +109,9 @@ The following relationships are created/mapped:
 
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
+| `wp_engine_account`   | **HAS**               | `wp_engine_install`   |
 | `wp_engine_account`   | **HAS**               | `wp_engine_site`      |
+| `wp_engine_site`      | **HAS**               | `wp_engine_install`   |
 | `wp_engine_user`      | **HAS**               | `wp_engine_account`   |
 
 <!--

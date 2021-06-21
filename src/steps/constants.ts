@@ -10,10 +10,11 @@ export enum IntegrationSteps {
   USER = 'fetch-user',
   ACCOUNTS = 'fetch-accounts',
   SITES = 'fetch-sites',
+  INSTALLS = 'fetch-installs',
 }
 
 export const Entities: Record<
-  'USER' | 'ACCOUNT' | 'SITE',
+  'USER' | 'ACCOUNT' | 'SITE' | 'INSTALL',
   StepEntityMetadata
 > = {
   USER: {
@@ -31,10 +32,18 @@ export const Entities: Record<
     _type: 'wp_engine_site',
     _class: 'Host',
   },
+  INSTALL: {
+    resourceName: 'Install',
+    _type: 'wp_engine_install',
+    _class: 'Application',
+  },
 };
 
 export const Relationships: Record<
-  'USER_HAS_ACCOUNT' | 'ACCOUNT_HAS_SITE',
+  | 'USER_HAS_ACCOUNT'
+  | 'ACCOUNT_HAS_SITE'
+  | 'SITE_HAS_INSTALL'
+  | 'ACCOUNT_HAS_INSTALL',
   StepRelationshipMetadata
 > = {
   USER_HAS_ACCOUNT: {
@@ -48,5 +57,17 @@ export const Relationships: Record<
     _class: RelationshipClass.HAS,
     sourceType: Entities.ACCOUNT._type,
     targetType: Entities.SITE._type,
+  },
+  ACCOUNT_HAS_INSTALL: {
+    _type: 'wp_engine_account_has_install',
+    _class: RelationshipClass.HAS,
+    sourceType: Entities.ACCOUNT._type,
+    targetType: Entities.INSTALL._type,
+  },
+  SITE_HAS_INSTALL: {
+    _type: 'wp_engine_site_has_install',
+    _class: RelationshipClass.HAS,
+    sourceType: Entities.SITE._type,
+    targetType: Entities.INSTALL._type,
   },
 };

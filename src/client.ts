@@ -12,6 +12,7 @@ import {
   WpEngineUser,
   WpEngineAccount,
   WpEngineSite,
+  WpEngineInstall,
 } from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
@@ -125,6 +126,24 @@ export class APIClient {
         await iteratee(site);
       }
     });
+  }
+
+  /**
+   * Iterates each user resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateInstalls(
+    iteratee: ResourceIteratee<WpEngineInstall>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineInstall>(
+      'installs',
+      async (installs) => {
+        for (const install of installs) {
+          await iteratee(install);
+        }
+      },
+    );
   }
 }
 
