@@ -96,7 +96,7 @@ export class APIClient {
   }
 
   /**
-   * Iterates each user resource in the provider.
+   * Iterates each account resource in the provider.
    *
    * @param iteratee receives each resource to produce entities/relationships
    */
@@ -114,7 +114,7 @@ export class APIClient {
   }
 
   /**
-   * Iterates each user resource in the provider.
+   * Iterates each site resource in the provider.
    *
    * @param iteratee receives each resource to produce entities/relationships
    */
@@ -129,7 +129,7 @@ export class APIClient {
   }
 
   /**
-   * Iterates each user resource in the provider.
+   * Iterates each install resource in the provider.
    *
    * @param iteratee receives each resource to produce entities/relationships
    */

@@ -8,13 +8,13 @@ import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
 import { fetchAccounts } from '../accounts';
 
-describe('#fetchSite', () => {
+describe('#fetchSites', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupWPEngineRecording({
       directory: __dirname,
-      name: 'fetchSite',
+      name: 'fetchSites',
     });
   });
 

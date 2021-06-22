@@ -9,13 +9,13 @@ import { fetchInstalls } from '.';
 import { fetchSites } from '../sites';
 import { fetchAccounts } from '../accounts';
 
-describe('#fetchSite', () => {
+describe('#fetchInstalls', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupWPEngineRecording({
       directory: __dirname,
-      name: 'fetchSite',
+      name: 'fetchInstalls',
     });
   });
 
@@ -82,10 +82,11 @@ describe('#fetchSite', () => {
       e._class.includes('Application'),
     );
     expect(installs.length).toBeGreaterThan(0);
+    console.log('installs', installs);
     expect(installs).toMatchGraphObjectSchema({
       _class: ['Application'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _rawData: {
             type: 'array',
@@ -93,6 +94,13 @@ describe('#fetchSite', () => {
           },
           _type: { const: 'wp_engine_install' },
           name: { type: 'string' },
+          phpVersion: { type: 'string' },
+          status: { type: 'string' },
+          cname: { type: 'string' },
+          stableIps: { type: 'array', items: { type: 'string' } },
+          environment: { type: 'string' },
+          primaryDomain: { type: 'string' },
+          isMultistate: { type: 'boolean' },
         },
       },
     });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#fetchSite should collect data 1`] = `
+exports[`#fetchInstalls should collect data 1`] = `
 Object {
   "collectedEntities": Array [
     Object {
@@ -85,14 +85,16 @@ Object {
       ],
       "_type": "wp_engine_install",
       "active": true,
-      "alternateURLs": Array [
-        "jupiterone.wpengine.com",
-        "jupiterone.com",
-      ],
+      "cname": "jupiterone.wpengine.com",
       "createdOn": undefined,
       "displayName": "jupiterone",
+      "environment": "production",
       "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "isMultistate": undefined,
       "name": "jupiterone",
+      "phpVersion": "7.3",
+      "primaryDomain": "jupiterone.com",
+      "stableIps": Array [],
       "status": "active",
     },
   ],
