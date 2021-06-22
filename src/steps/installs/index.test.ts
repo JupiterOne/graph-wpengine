@@ -8,6 +8,7 @@ import { setupWPEngineRecording } from '../../../test/recording';
 import { fetchInstalls } from '.';
 import { fetchSites } from '../sites';
 import { fetchAccounts } from '../accounts';
+import { Relationships } from '../constants';
 
 describe('#fetchInstalls', () => {
   let recording: Recording;
@@ -82,7 +83,6 @@ describe('#fetchInstalls', () => {
       e._class.includes('Application'),
     );
     expect(installs.length).toBeGreaterThan(0);
-    console.log('installs', installs);
     expect(installs).toMatchGraphObjectSchema({
       _class: ['Application'],
       schema: {
@@ -101,6 +101,36 @@ describe('#fetchInstalls', () => {
           environment: { type: 'string' },
           primaryDomain: { type: 'string' },
           isMultistate: { type: 'boolean' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === Relationships.ACCOUNT_HAS_INSTALL._type,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'wp_engine_account_has_install',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === Relationships.SITE_HAS_INSTALL._type,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'wp_engine_site_has_install',
+          },
         },
       },
     });

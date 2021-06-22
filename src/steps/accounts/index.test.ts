@@ -7,6 +7,7 @@ import { fetchAccounts } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
 import { fetchUser } from '../user';
+import { Relationships } from '../constants';
 
 describe('#fetchAccounts', () => {
   let recording: Recording;
@@ -74,6 +75,21 @@ describe('#fetchAccounts', () => {
           name: { type: 'string' },
           username: { type: 'string' },
           email: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === Relationships.USER_HAS_ACCOUNT._type,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'wp_engine_user_has_account',
+          },
         },
       },
     });

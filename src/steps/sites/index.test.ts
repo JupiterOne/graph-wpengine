@@ -7,6 +7,7 @@ import { fetchSites } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
 import { fetchAccounts } from '../accounts';
+import { Relationships } from '../constants';
 
 describe('#fetchSites', () => {
   let recording: Recording;
@@ -72,6 +73,21 @@ describe('#fetchSites', () => {
           },
           _type: { const: 'wp_engine_account' },
           name: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === Relationships.ACCOUNT_HAS_SITE._type,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'wp_engine_account_has_site',
+          },
         },
       },
     });
