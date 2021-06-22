@@ -99,6 +99,7 @@ The following entities are created:
 | Resources | Entity `_type`      | Entity `_class` |
 | --------- | ------------------- | --------------- |
 | Account   | `wp_engine_account` | `Account`       |
+| Domain    | `wp_engine_domain`  | `Domain`        |
 | Install   | `wp_engine_install` | `Application`   |
 | Site      | `wp_engine_site`    | `Host`          |
 | User      | `wp_engine_user`    | `User`          |

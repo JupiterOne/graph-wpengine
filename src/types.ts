@@ -52,3 +52,14 @@ export type WpEngineInstall = {
   primary_domain: string;
   is_multistate: boolean;
 };
+
+export type WpEngineDomain = {
+  id: string;
+  name: string;
+  duplicate: boolean;
+  primary: boolean;
+  redirect_to: {
+    id: string;
+    name: string;
+  };
+};

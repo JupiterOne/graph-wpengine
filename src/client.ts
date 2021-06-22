@@ -13,6 +13,7 @@ import {
   WpEngineAccount,
   WpEngineSite,
   WpEngineInstall,
+  WpEngineDomain,
 } from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
@@ -141,6 +142,25 @@ export class APIClient {
       async (installs) => {
         for (const install of installs) {
           await iteratee(install);
+        }
+      },
+    );
+  }
+
+  /**
+   * Iterates each domain resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateDomains(
+    install_id: string,
+    iteratee: ResourceIteratee<WpEngineDomain>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineDomain>(
+      `/installs/${install_id}/domains`,
+      async (domains) => {
+        for (const domain of domains) {
+          await iteratee(domain);
         }
       },
     );

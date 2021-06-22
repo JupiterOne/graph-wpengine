@@ -11,10 +11,11 @@ export enum IntegrationSteps {
   ACCOUNTS = 'fetch-accounts',
   SITES = 'fetch-sites',
   INSTALLS = 'fetch-installs',
+  DOMAINS = 'fetch-domains',
 }
 
 export const Entities: Record<
-  'USER' | 'ACCOUNT' | 'SITE' | 'INSTALL',
+  'USER' | 'ACCOUNT' | 'SITE' | 'INSTALL' | 'DOMAIN',
   StepEntityMetadata
 > = {
   USER: {
@@ -36,6 +37,11 @@ export const Entities: Record<
     resourceName: 'Install',
     _type: 'wp_engine_install',
     _class: 'Application',
+  },
+  DOMAIN: {
+    resourceName: 'Domain',
+    _type: 'wp_engine_domain',
+    _class: 'Domain',
   },
 };
 
