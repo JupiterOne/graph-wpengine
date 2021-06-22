@@ -3,19 +3,20 @@ import {
   Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig } from '../../config';
-import { fetchAccounts } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
-import { fetchUser } from '../user';
+import { fetchInstalls } from '.';
+import { fetchSites } from '../sites';
+import { fetchAccounts } from '../accounts';
 import { Relationships } from '../constants';
 
-describe('#fetchAccounts', () => {
+describe('#fetchInstalls', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupWPEngineRecording({
       directory: __dirname,
-      name: 'fetchAccounts',
+      name: 'fetchInstalls',
     });
   });
 
@@ -28,8 +29,9 @@ describe('#fetchAccounts', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchUser(context);
     await fetchAccounts(context);
+    await fetchSites(context);
+    await fetchInstalls(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -38,6 +40,25 @@ describe('#fetchAccounts', () => {
       collectedRelationships: context.jobState.collectedRelationships,
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
+
+    const sites = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('Host'),
+    );
+    expect(sites.length).toBeGreaterThan(0);
+    expect(sites).toMatchGraphObjectSchema({
+      _class: ['Host'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          _type: { const: 'wp_engine_site' },
+          name: { type: 'string' },
+        },
+      },
+    });
 
     const accounts = context.jobState.collectedEntities.filter((e) =>
       e._class.includes('Account'),
@@ -58,37 +79,57 @@ describe('#fetchAccounts', () => {
       },
     });
 
-    const users = context.jobState.collectedEntities.filter((e) =>
-      e._class.includes('User'),
+    const installs = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('Application'),
     );
-    expect(users.length).toEqual(1);
-    expect(users).toMatchGraphObjectSchema({
-      _class: ['User'],
+    expect(installs.length).toBeGreaterThan(0);
+    expect(installs).toMatchGraphObjectSchema({
+      _class: ['Application'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
-          _type: { const: 'wp_engine_user' },
+          _type: { const: 'wp_engine_install' },
           name: { type: 'string' },
-          username: { type: 'string' },
-          email: { type: 'string' },
+          phpVersion: { type: 'string' },
+          status: { type: 'string' },
+          cname: { type: 'string' },
+          stableIps: { type: 'array', items: { type: 'string' } },
+          environment: { type: 'string' },
+          primaryDomain: { type: 'string' },
+          isMultistate: { type: 'boolean' },
         },
       },
     });
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === Relationships.USER_HAS_ACCOUNT._type,
+        (e) => e._type === Relationships.ACCOUNT_HAS_INSTALL._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const: 'wp_engine_user_has_account',
+            const: 'wp_engine_account_has_install',
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === Relationships.SITE_HAS_INSTALL._type,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'wp_engine_site_has_install',
           },
         },
       },

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchSites should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            "name": "j1inc",
+          },
+        },
+      ],
+      "_type": "wp_engine_account",
+      "createdOn": undefined,
+      "displayName": "j1inc",
+      "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "name": "j1inc",
+    },
+    Object {
+      "_class": Array [
+        "Host",
+      ],
+      "_key": "wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "account": Object {
+              "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            },
+            "id": "4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+            "installs": Array [
+              Object {
+                "cname": "jupiterone.wpengine.com",
+                "environment": "production",
+                "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+                "is_multisite": false,
+                "name": "jupiterone",
+                "php_version": "7.3",
+              },
+            ],
+            "name": "jupiterone",
+          },
+        },
+      ],
+      "_type": "wp_engine_site",
+      "createdOn": undefined,
+      "displayName": "jupiterone",
+      "id": "4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "name": "jupiterone",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1|has|wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_toEntityKey": "wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_type": "wp_engine_account_has_site",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "wp_engine_account",
+    "wp_engine_site",
+    "wp_engine_account_has_site",
+  ],
+  "numCollectedEntities": 2,
+  "numCollectedRelationships": 1,
+}
+`;

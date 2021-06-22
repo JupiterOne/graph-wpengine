@@ -18,3 +18,37 @@ export type WpEngineAccount = {
   id: string;
   name: string;
 };
+
+export type WpEngineSite = {
+  id: string;
+  name: string;
+  account: {
+    id: string;
+  };
+  installs: {
+    id: string;
+    name: string;
+    environment: string;
+    cname: string;
+    php_version: string;
+    is_multistate: boolean;
+  }[];
+};
+
+export type WpEngineInstall = {
+  id: string;
+  name: string;
+  account: {
+    id: string;
+  };
+  php_version: string;
+  status: string;
+  site: {
+    id: string;
+  };
+  cname: string;
+  stable_ips: string[];
+  environment: string;
+  primary_domain: string;
+  is_multistate: boolean;
+};

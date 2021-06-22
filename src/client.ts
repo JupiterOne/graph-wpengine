@@ -2,16 +2,17 @@ import fetch, { Response } from 'node-fetch';
 
 import {
   IntegrationProviderAPIError,
-  // IntegrationValidationError,
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
 import {
-  WpEngineUser,
   PaginatedResource,
   PageIteratee,
+  WpEngineUser,
   WpEngineAccount,
+  WpEngineSite,
+  WpEngineInstall,
 } from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
@@ -95,7 +96,7 @@ export class APIClient {
   }
 
   /**
-   * Iterates each user resource in the provider.
+   * Iterates each account resource in the provider.
    *
    * @param iteratee receives each resource to produce entities/relationships
    */
@@ -107,6 +108,39 @@ export class APIClient {
       async (accounts) => {
         for (const account of accounts) {
           await iteratee(account);
+        }
+      },
+    );
+  }
+
+  /**
+   * Iterates each site resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateSites(
+    iteratee: ResourceIteratee<WpEngineSite>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineSite>('sites', async (sites) => {
+      for (const site of sites) {
+        await iteratee(site);
+      }
+    });
+  }
+
+  /**
+   * Iterates each install resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateInstalls(
+    iteratee: ResourceIteratee<WpEngineInstall>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineInstall>(
+      'installs',
+      async (installs) => {
+        for (const install of installs) {
+          await iteratee(install);
         }
       },
     );

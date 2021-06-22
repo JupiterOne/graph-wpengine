@@ -3,19 +3,19 @@ import {
   Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig } from '../../config';
-import { fetchAccounts } from '.';
+import { fetchSites } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
-import { fetchUser } from '../user';
+import { fetchAccounts } from '../accounts';
 import { Relationships } from '../constants';
 
-describe('#fetchAccounts', () => {
+describe('#fetchSites', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupWPEngineRecording({
       directory: __dirname,
-      name: 'fetchAccounts',
+      name: 'fetchSites',
     });
   });
 
@@ -28,8 +28,8 @@ describe('#fetchAccounts', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchUser(context);
     await fetchAccounts(context);
+    await fetchSites(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -38,6 +38,25 @@ describe('#fetchAccounts', () => {
       collectedRelationships: context.jobState.collectedRelationships,
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
+
+    const sites = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('Host'),
+    );
+    expect(sites.length).toBeGreaterThan(0);
+    expect(sites).toMatchGraphObjectSchema({
+      _class: ['Host'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          _type: { const: 'wp_engine_site' },
+          name: { type: 'string' },
+        },
+      },
+    });
 
     const accounts = context.jobState.collectedEntities.filter((e) =>
       e._class.includes('Account'),
@@ -58,37 +77,16 @@ describe('#fetchAccounts', () => {
       },
     });
 
-    const users = context.jobState.collectedEntities.filter((e) =>
-      e._class.includes('User'),
-    );
-    expect(users.length).toEqual(1);
-    expect(users).toMatchGraphObjectSchema({
-      _class: ['User'],
-      schema: {
-        additionalProperties: false,
-        properties: {
-          _rawData: {
-            type: 'array',
-            items: { type: 'object' },
-          },
-          _type: { const: 'wp_engine_user' },
-          name: { type: 'string' },
-          username: { type: 'string' },
-          email: { type: 'string' },
-        },
-      },
-    });
-
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === Relationships.USER_HAS_ACCOUNT._type,
+        (e) => e._type === Relationships.ACCOUNT_HAS_SITE._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const: 'wp_engine_user_has_account',
+            const: 'wp_engine_account_has_site',
           },
         },
       },
