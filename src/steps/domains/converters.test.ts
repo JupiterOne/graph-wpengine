@@ -1,8 +1,8 @@
-import { getMockAccount } from '../../../test/mocks';
-import { createAccountEntity } from './converters';
+import { getMockDomain } from '../../../test/mocks';
+import { createDomainEntity } from './converters';
 
-describe('#createAccountEntity', () => {
+describe('#createDomainEntity', () => {
   test('should convert to entity', () => {
-    expect(createAccountEntity(getMockAccount())).toMatchSnapshot();
+    expect(createDomainEntity(getMockDomain())).toMatchSnapshot();
   });
 });

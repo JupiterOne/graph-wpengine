@@ -1,5 +1,6 @@
 import {
   WpEngineAccount,
+  WpEngineDomain,
   WpEngineInstall,
   WpEngineSite,
   WpEngineUser,
@@ -65,6 +66,22 @@ export function getMockInstall(
     environment: 'sample-environment',
     primary_domain: 'sample.primary-domain.com',
     is_multistate: false,
+    ...partial,
+  };
+}
+
+export function getMockDomain(
+  partial?: Partial<WpEngineDomain>,
+): WpEngineDomain {
+  return {
+    name: 'www.name.io',
+    duplicate: false,
+    id: 'some-id-here',
+    primary: false,
+    redirect_to: {
+      id: 'some-id-here',
+      name: 'hostname.com',
+    },
     ...partial,
   };
 }

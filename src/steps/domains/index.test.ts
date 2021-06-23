@@ -3,19 +3,19 @@ import {
   Recording,
 } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig } from '../../config';
-import { fetchAccounts } from '.';
+import { fetchDomains } from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupWPEngineRecording } from '../../../test/recording';
-import { fetchUser } from '../user';
 import { Relationships } from '../constants';
+import { fetchInstalls } from '../installs';
 
-describe('#fetchAccounts', () => {
+describe('#fetchDomains', () => {
   let recording: Recording;
 
   beforeEach(() => {
     recording = setupWPEngineRecording({
       directory: __dirname,
-      name: 'fetchAccounts',
+      name: 'fetchDomains',
     });
   });
 
@@ -28,8 +28,8 @@ describe('#fetchAccounts', () => {
       instanceConfig: integrationConfig,
     });
 
-    await fetchUser(context);
-    await fetchAccounts(context);
+    await fetchInstalls(context);
+    await fetchDomains(context);
 
     expect({
       numCollectedEntities: context.jobState.collectedEntities.length,
@@ -39,56 +39,68 @@ describe('#fetchAccounts', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
-    const accounts = context.jobState.collectedEntities.filter((e) =>
-      e._class.includes('Account'),
+    const domains = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('Domain'),
     );
-    expect(accounts.length).toBeGreaterThan(0);
-    expect(accounts).toMatchGraphObjectSchema({
-      _class: ['Account'],
+    expect(domains.length).toBeGreaterThan(0);
+    expect(domains).toMatchGraphObjectSchema({
+      _class: ['Domain'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
-          _type: { const: 'wp_engine_account' },
+          _type: { const: 'wp_engine_domain' },
           name: { type: 'string' },
+          phpVersion: { type: 'string' },
+          status: { type: 'string' },
+          cname: { type: 'string' },
+          stableIps: { type: 'string' },
+          environment: { type: 'string' },
+          primaryDomain: { type: 'string' },
+          isMultistate: { type: 'string' },
         },
       },
     });
 
-    const users = context.jobState.collectedEntities.filter((e) =>
-      e._class.includes('User'),
+    const installs = context.jobState.collectedEntities.filter((e) =>
+      e._class.includes('Application'),
     );
-    expect(users.length).toEqual(1);
-    expect(users).toMatchGraphObjectSchema({
-      _class: ['User'],
+    expect(installs.length).toBeGreaterThan(0);
+    expect(installs).toMatchGraphObjectSchema({
+      _class: ['Application'],
       schema: {
-        additionalProperties: false,
+        additionalProperties: true,
         properties: {
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
-          _type: { const: 'wp_engine_user' },
+          _type: { const: 'wp_engine_install' },
           name: { type: 'string' },
-          username: { type: 'string' },
-          email: { type: 'string' },
+          phpVersion: { type: 'string' },
+          status: { type: 'string' },
+          cname: { type: 'string' },
+          stableIps: { type: 'array', items: { type: 'string' } },
+          environment: { type: 'string' },
+          primaryDomain: { type: 'string' },
+          isMultistate: { type: 'boolean' },
         },
       },
     });
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === Relationships.USER_HAS_ACCOUNT._type,
+        (e) => e._type === Relationships.INSTALL_HAS_DOMAIN._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
           _class: { const: 'HAS' },
           _type: {
-            const: 'wp_engine_user_has_account',
+            const: 'wp_engine_install_has_domain',
           },
         },
       },
