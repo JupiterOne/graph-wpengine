@@ -112,6 +112,7 @@ The following relationships are created/mapped:
 | --------------------- | --------------------- | --------------------- |
 | `wp_engine_account`   | **HAS**               | `wp_engine_install`   |
 | `wp_engine_account`   | **HAS**               | `wp_engine_site`      |
+| `wp_engine_install`   | **HAS**               | `wp_engine_domain`    |
 | `wp_engine_site`      | **HAS**               | `wp_engine_install`   |
 | `wp_engine_user`      | **HAS**               | `wp_engine_account`   |
 

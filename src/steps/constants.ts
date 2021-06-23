@@ -49,7 +49,8 @@ export const Relationships: Record<
   | 'USER_HAS_ACCOUNT'
   | 'ACCOUNT_HAS_SITE'
   | 'SITE_HAS_INSTALL'
-  | 'ACCOUNT_HAS_INSTALL',
+  | 'ACCOUNT_HAS_INSTALL'
+  | 'INSTALL_HAS_DOMAIN',
   StepRelationshipMetadata
 > = {
   USER_HAS_ACCOUNT: {
@@ -75,5 +76,11 @@ export const Relationships: Record<
     _class: RelationshipClass.HAS,
     sourceType: Entities.SITE._type,
     targetType: Entities.INSTALL._type,
+  },
+  INSTALL_HAS_DOMAIN: {
+    _type: 'wp_engine_install_has_domain',
+    _class: RelationshipClass.HAS,
+    sourceType: Entities.INSTALL._type,
+    targetType: Entities.DOMAIN._type,
   },
 };

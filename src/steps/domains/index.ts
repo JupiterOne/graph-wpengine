@@ -1,6 +1,5 @@
 import {
   createDirectRelationship,
-  Entity,
   IntegrationStep,
   IntegrationStepExecutionContext,
   RelationshipClass,
@@ -18,20 +17,25 @@ export async function fetchDomains({
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config);
 
-  await jobState.iterateEntities(Entities.INSTALL, (install) => {
-    void apiClient.iterateDomains(install.id as string, async (domain) => {
+  await jobState.iterateEntities(Entities.INSTALL, async (install) => {
+    await apiClient.iterateDomains(install.id as string, async (domain) => {
       const domainEntity = createDomainEntity(domain);
-
-      console.log('install', install);
-      console.log('domainEntity', domainEntity);
 
       await jobState.addEntity(domainEntity);
 
-      // const installEntity = await jobState.findEntity(
-      //   getInstallKey(install.id as string),
-      // );
+      const installEntity = await jobState.findEntity(
+        getInstallKey(install.id as string),
+      );
 
-      // console.log('installEntity', installEntity);
+      if (installEntity && domainEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.HAS,
+            from: installEntity,
+            to: domainEntity,
+          }),
+        );
+      }
     });
   });
 }
@@ -41,7 +45,7 @@ export const domainSteps: IntegrationStep<IntegrationConfig>[] = [
     id: IntegrationSteps.DOMAINS,
     name: 'Fetch Domains',
     entities: [Entities.DOMAIN],
-    relationships: [],
+    relationships: [Relationships.INSTALL_HAS_DOMAIN],
     dependsOn: [IntegrationSteps.INSTALLS],
     executionHandler: fetchDomains,
   },
