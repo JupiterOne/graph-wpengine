@@ -62,20 +62,19 @@ export class APIClient {
     uri: string,
     pageIteratee: PageIteratee<T>,
   ): Promise<void> {
-    let offset = 0;
     let body: PaginatedResource<T>;
+    let endpoint = this.withBaseUri(
+      `${uri}?limit=${this.paginateEntitiesPerPage}&offset=0`,
+    );
 
     do {
-      const endpoint = this.withBaseUri(
-        `${uri}?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
-      );
       const response = await this.request(endpoint, 'GET');
       body = await response.json();
 
       await pageIteratee(body.results);
 
-      offset++;
-    } while (body.count && offset < body.count);
+      endpoint = body.next;
+    } while (body.next);
   }
 
   public async verifyAuthentication(): Promise<void> {
