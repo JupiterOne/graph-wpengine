@@ -9,7 +9,6 @@ import { IntegrationConfig } from '../../config';
 import { createAPIClient } from '../../client';
 import { Entities, Relationships, IntegrationSteps } from '../constants';
 import { createDomainEntity } from './converters';
-import { getInstallKey } from '../installs/converters';
 
 export async function fetchDomains({
   instance,
