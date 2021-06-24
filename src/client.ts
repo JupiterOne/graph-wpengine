@@ -152,11 +152,11 @@ export class APIClient {
    * @param iteratee receives each resource to produce entities/relationships
    */
   public async iterateDomains(
-    install_id: string,
+    installId: string,
     iteratee: ResourceIteratee<WpEngineDomain>,
   ): Promise<void> {
     await this.paginatedRequest<WpEngineDomain>(
-      `/installs/${install_id}/domains`,
+      `/installs/${installId}/domains`,
       async (domains) => {
         for (const domain of domains) {
           await iteratee(domain);

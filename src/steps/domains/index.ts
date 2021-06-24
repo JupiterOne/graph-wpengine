@@ -23,15 +23,11 @@ export async function fetchDomains({
 
       await jobState.addEntity(domainEntity);
 
-      const installEntity = await jobState.findEntity(
-        getInstallKey(install.id as string),
-      );
-
-      if (installEntity && domainEntity) {
+      if (install && domainEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
             _class: RelationshipClass.HAS,
-            from: installEntity,
+            from: install,
             to: domainEntity,
           }),
         );
