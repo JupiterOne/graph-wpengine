@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createDomainEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Domain",
+  ],
+  "_key": "wp_engine_domain:some-id-here",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "duplicate": false,
+        "id": "some-id-here",
+        "name": "www.name.io",
+        "primary": false,
+        "redirect_to": Object {
+          "id": "some-id-here",
+          "name": "hostname.com",
+        },
+      },
+    },
+  ],
+  "_type": "wp_engine_domain",
+  "createdOn": undefined,
+  "displayName": "www.name.io",
+  "domainName": "www.name.io",
+  "duplicate": false,
+  "id": "some-id-here",
+  "name": "www.name.io",
+  "primary": false,
+  "redirectTo": "hostname.com",
+}
+`;

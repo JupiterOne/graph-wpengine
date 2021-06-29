@@ -13,6 +13,7 @@ import {
   WpEngineAccount,
   WpEngineSite,
   WpEngineInstall,
+  WpEngineDomain,
 } from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
@@ -61,20 +62,19 @@ export class APIClient {
     uri: string,
     pageIteratee: PageIteratee<T>,
   ): Promise<void> {
-    let offset = 0;
     let body: PaginatedResource<T>;
+    let endpoint = this.withBaseUri(
+      `${uri}?limit=${this.paginateEntitiesPerPage}&offset=0`,
+    );
 
     do {
-      const endpoint = this.withBaseUri(
-        `${uri}?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
-      );
       const response = await this.request(endpoint, 'GET');
       body = await response.json();
 
       await pageIteratee(body.results);
 
-      offset++;
-    } while (body.count && offset < body.count);
+      endpoint = body.next;
+    } while (body.next);
   }
 
   public async verifyAuthentication(): Promise<void> {
@@ -141,6 +141,25 @@ export class APIClient {
       async (installs) => {
         for (const install of installs) {
           await iteratee(install);
+        }
+      },
+    );
+  }
+
+  /**
+   * Iterates each domain resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateDomains(
+    installId: string,
+    iteratee: ResourceIteratee<WpEngineDomain>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineDomain>(
+      `/installs/${installId}/domains`,
+      async (domains) => {
+        for (const domain of domains) {
+          await iteratee(domain);
         }
       },
     );
