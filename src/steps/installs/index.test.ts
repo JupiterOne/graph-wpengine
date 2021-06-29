@@ -86,7 +86,7 @@ describe('#fetchInstalls', () => {
     expect(installs).toMatchGraphObjectSchema({
       _class: ['Application'],
       schema: {
-        additionalProperties: true,
+        additionalProperties: false,
         properties: {
           _rawData: {
             type: 'array',

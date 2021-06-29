@@ -46,21 +46,17 @@ describe('#fetchDomains', () => {
     expect(domains).toMatchGraphObjectSchema({
       _class: ['Domain'],
       schema: {
-        additionalProperties: true,
+        additionalProperties: false,
         properties: {
           _rawData: {
             type: 'array',
             items: { type: 'object' },
           },
           _type: { const: 'wp_engine_domain' },
-          name: { type: 'string' },
-          phpVersion: { type: 'string' },
-          status: { type: 'string' },
-          cname: { type: 'string' },
-          stableIps: { type: 'string' },
-          environment: { type: 'string' },
-          primaryDomain: { type: 'string' },
-          isMultistate: { type: 'string' },
+          domainName: { type: 'string' },
+          duplicate: { type: 'boolean' },
+          primary: { type: 'boolean' },
+          redirectTo: { type: 'string' },
         },
       },
     });
@@ -72,7 +68,7 @@ describe('#fetchDomains', () => {
     expect(installs).toMatchGraphObjectSchema({
       _class: ['Application'],
       schema: {
-        additionalProperties: true,
+        additionalProperties: false,
         properties: {
           _rawData: {
             type: 'array',
