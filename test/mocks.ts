@@ -40,7 +40,7 @@ export function getMockSite(partial?: Partial<WpEngineSite>): WpEngineSite {
         environment: 'sampleEnvironment',
         cname: 'sample.hostname.com',
         php_version: '1.0',
-        is_multistate: false,
+        is_multisite: false,
       },
     ],
     ...partial,
@@ -65,7 +65,7 @@ export function getMockInstall(
     stable_ips: ['sample-ip-1', 'sample-ip-2'],
     environment: 'sample-environment',
     primary_domain: 'sample.primary-domain.com',
-    is_multistate: false,
+    is_multisite: false,
     ...partial,
   };
 }
