@@ -19,7 +19,7 @@ Object {
             "cname": "sample.hostname.com",
             "environment": "sampleEnvironment",
             "id": "some-id-here",
-            "is_multistate": false,
+            "is_multisite": false,
             "name": "exampleName",
             "php_version": "1.0",
           },
