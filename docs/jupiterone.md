@@ -33,8 +33,8 @@ If you need help with this integration, please contact
 ### In [WordPress Engine](https://my.wpengine.com/)
 
 1. From your dashboard, go to your profile page.
-2. Navigate to "API Access".
-3. Generate credentials.
+2. Navigate to **API Access**.
+3. Click **Generate credentials** button.
 
 ### In JupiterOne
 
