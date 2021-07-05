@@ -57,7 +57,7 @@ export function getMockInstall(
       id: 'some-id-here',
     },
     php_version: 'sample-php-version',
-    status: 'sample-status',
+    status: 'pending',
     site: {
       id: 'some-id-here',
     },

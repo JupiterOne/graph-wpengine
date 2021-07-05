@@ -27,12 +27,12 @@ Object {
           "sample-ip-1",
           "sample-ip-2",
         ],
-        "status": "sample-status",
+        "status": "pending",
       },
     },
   ],
   "_type": "wp_engine_install",
-  "active": undefined,
+  "active": false,
   "cname": "sample.hostname.com",
   "createdOn": undefined,
   "displayName": "Doe",
@@ -46,6 +46,6 @@ Object {
     "sample-ip-1",
     "sample-ip-2",
   ],
-  "status": false,
+  "status": "pending",
 }
 `;
