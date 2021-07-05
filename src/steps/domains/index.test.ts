@@ -82,7 +82,7 @@ describe('#fetchDomains', () => {
           stableIps: { type: 'array', items: { type: 'string' } },
           environment: { type: 'string' },
           primaryDomain: { type: 'string' },
-          isMultistate: { type: 'boolean' },
+          isMultisite: { type: 'boolean' },
         },
       },
     });

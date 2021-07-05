@@ -21,7 +21,7 @@ export function createInstallEntity(data: WpEngineInstall) {
         stableIps: data.stable_ips || [],
         environment: data.environment,
         primaryDomain: data.primary_domain,
-        isMultistate: data.is_multistate,
+        isMultisite: data.is_multisite,
       },
     },
   });

@@ -38,7 +38,7 @@ Object {
   "displayName": "Doe",
   "environment": "sample-environment",
   "id": "some-id-here",
-  "isMultistate": false,
+  "isMultisite": undefined,
   "name": "Doe",
   "phpVersion": "sample-php-version",
   "primaryDomain": "sample.primary-domain.com",
