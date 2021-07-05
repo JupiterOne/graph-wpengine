@@ -46,6 +46,6 @@ Object {
     "sample-ip-1",
     "sample-ip-2",
   ],
-  "status": "sample-status",
+  "status": false,
 }
 `;

@@ -95,7 +95,7 @@ describe('#fetchInstalls', () => {
           _type: { const: 'wp_engine_install' },
           name: { type: 'string' },
           phpVersion: { type: 'string' },
-          status: { type: 'string' },
+          status: { type: 'boolean' },
           cname: { type: 'string' },
           stableIps: { type: 'array', items: { type: 'string' } },
           environment: { type: 'string' },

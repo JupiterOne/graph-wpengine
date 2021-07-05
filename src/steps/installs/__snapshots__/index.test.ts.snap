@@ -95,7 +95,7 @@ Object {
       "phpVersion": "7.3",
       "primaryDomain": "jupiterone.com",
       "stableIps": Array [],
-      "status": "active",
+      "status": true,
     },
   ],
   "collectedRelationships": Array [

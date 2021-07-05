@@ -16,7 +16,7 @@ export function createInstallEntity(data: WpEngineInstall) {
         _key: getInstallKey(data.id),
         name: data.name,
         phpVersion: data.php_version,
-        status: data.status,
+        status: data.status === 'active',
         cname: data.cname,
         stableIps: data.stable_ips || [],
         environment: data.environment,
