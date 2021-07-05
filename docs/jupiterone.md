@@ -30,9 +30,11 @@ If you need help with this integration, please contact
 
 ## Integration Walkthrough
 
-### In [WordPress Engine User Portal](https://my.wpengine.com/api_access)
+### In [WordPress Engine](https://my.wpengine.com/)
 
-1. Generate credentials
+1. From your dashboard, go to your profile page.
+2. Navigate to "API Access".
+3. Generate credentials.
 
 ### In JupiterOne
 
