@@ -75,6 +75,8 @@ describe('#fetchAccounts', () => {
           name: { type: 'string' },
           username: { type: 'string' },
           email: { type: 'string' },
+          firstName: { type: 'string' },
+          lastName: { type: 'string' },
         },
       },
     });

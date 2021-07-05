@@ -21,7 +21,9 @@ Object {
   "createdOn": undefined,
   "displayName": "John Doe",
   "email": "john@example.com",
+  "firstName": "John",
   "id": "some-id-here",
+  "lastName": "Doe",
   "name": "John Doe",
   "username": "john@example.com",
 }
