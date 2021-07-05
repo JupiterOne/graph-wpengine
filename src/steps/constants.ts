@@ -46,16 +46,16 @@ export const Entities: Record<
 };
 
 export const Relationships: Record<
-  | 'USER_HAS_ACCOUNT'
+  | 'USER_MANAGES_ACCOUNT'
   | 'ACCOUNT_HAS_SITE'
   | 'SITE_HAS_INSTALL'
   | 'ACCOUNT_HAS_INSTALL'
   | 'INSTALL_HAS_DOMAIN',
   StepRelationshipMetadata
 > = {
-  USER_HAS_ACCOUNT: {
-    _type: 'wp_engine_user_has_account',
-    _class: RelationshipClass.HAS,
+  USER_MANAGES_ACCOUNT: {
+    _type: 'wp_engine_user_manages_account',
+    _class: RelationshipClass.MANAGES,
     sourceType: Entities.USER._type,
     targetType: Entities.ACCOUNT._type,
   },

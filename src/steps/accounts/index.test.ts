@@ -83,14 +83,14 @@ describe('#fetchAccounts', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === Relationships.USER_HAS_ACCOUNT._type,
+        (e) => e._type === Relationships.USER_MANAGES_ACCOUNT._type,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
         properties: {
-          _class: { const: 'HAS' },
+          _class: { const: 'MANAGES' },
           _type: {
-            const: 'wp_engine_user_has_account',
+            const: 'wp_engine_user_manages_account',
           },
         },
       },

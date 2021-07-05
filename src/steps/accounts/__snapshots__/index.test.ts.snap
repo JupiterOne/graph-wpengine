@@ -52,18 +52,18 @@ Object {
   ],
   "collectedRelationships": Array [
     Object {
-      "_class": "HAS",
+      "_class": "MANAGES",
       "_fromEntityKey": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc",
-      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc|has|wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc|manages|wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
       "_toEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
-      "_type": "wp_engine_user_has_account",
-      "displayName": "HAS",
+      "_type": "wp_engine_user_manages_account",
+      "displayName": "MANAGES",
     },
   ],
   "encounteredTypes": Array [
     "wp_engine_user",
     "wp_engine_account",
-    "wp_engine_user_has_account",
+    "wp_engine_user_manages_account",
   ],
   "numCollectedEntities": 2,
   "numCollectedRelationships": 1,
