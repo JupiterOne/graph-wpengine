@@ -15,6 +15,8 @@ export function createUserEntity(data: WpEngineUser) {
         _type: Entities.USER._type,
         _key: getAccountKey(data.id),
         name: `${data.first_name} ${data.last_name}`,
+        firstName: data.first_name,
+        lastName: data.last_name,
         username: data.email,
         email: data.email,
       },

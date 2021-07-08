@@ -31,7 +31,7 @@ export type WpEngineSite = {
     environment: string;
     cname: string;
     php_version: string;
-    is_multistate: boolean;
+    is_multisite: boolean;
   }[];
 };
 
@@ -50,7 +50,7 @@ export type WpEngineInstall = {
   stable_ips: string[];
   environment: string;
   primary_domain: string;
-  is_multistate: boolean;
+  is_multisite: boolean;
 };
 
 export type WpEngineDomain = {

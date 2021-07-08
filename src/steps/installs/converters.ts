@@ -17,11 +17,12 @@ export function createInstallEntity(data: WpEngineInstall) {
         name: data.name,
         phpVersion: data.php_version,
         status: data.status,
+        active: data.status === 'active',
         cname: data.cname,
         stableIps: data.stable_ips || [],
         environment: data.environment,
         primaryDomain: data.primary_domain,
-        isMultistate: data.is_multistate,
+        isMultisite: data.is_multisite,
       },
     },
   });

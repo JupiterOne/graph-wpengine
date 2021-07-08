@@ -32,7 +32,7 @@ export async function fetchAccounts({
     if (userEntity) {
       await jobState.addRelationship(
         createDirectRelationship({
-          _class: RelationshipClass.HAS,
+          _class: RelationshipClass.MANAGES,
           from: userEntity,
           to: accountEntity,
         }),
@@ -46,7 +46,7 @@ export const accountSteps: IntegrationStep<IntegrationConfig>[] = [
     id: IntegrationSteps.ACCOUNTS,
     name: 'Fetch Accounts',
     entities: [Entities.ACCOUNT],
-    relationships: [Relationships.USER_HAS_ACCOUNT],
+    relationships: [Relationships.USER_MANAGES_ACCOUNT],
     dependsOn: [IntegrationSteps.USER],
     executionHandler: fetchAccounts,
   },

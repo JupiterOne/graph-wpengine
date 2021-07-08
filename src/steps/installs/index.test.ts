@@ -96,11 +96,12 @@ describe('#fetchInstalls', () => {
           name: { type: 'string' },
           phpVersion: { type: 'string' },
           status: { type: 'string' },
+          active: { type: 'boolean' },
           cname: { type: 'string' },
           stableIps: { type: 'array', items: { type: 'string' } },
           environment: { type: 'string' },
           primaryDomain: { type: 'string' },
-          isMultistate: { type: 'boolean' },
+          isMultisite: { type: 'boolean' },
         },
       },
     });

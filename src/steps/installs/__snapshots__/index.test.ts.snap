@@ -90,7 +90,7 @@ Object {
       "displayName": "jupiterone",
       "environment": "production",
       "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
-      "isMultistate": undefined,
+      "isMultisite": false,
       "name": "jupiterone",
       "phpVersion": "7.3",
       "primaryDomain": "jupiterone.com",
