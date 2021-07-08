@@ -22,7 +22,7 @@
     "test:env": "LOAD_ENV=1 yarn test",
     "test:ci": "yarn lint && yarn type-check && yarn test",
     "build": "tsc -p tsconfig.dist.json --declaration",
-    "prepush": "yarn lint && yarn type-check && jest --changedSince master",
+    "prepush": "yarn lint && yarn type-check && yarn jest --changedSince master",
     "prepack": "yarn build"
   },
   "peerDependencies": {
@@ -32,5 +32,9 @@
     "@jupiterone/integration-sdk-core": "^6.0.0",
     "@jupiterone/integration-sdk-dev-tools": "^6.0.0",
     "@jupiterone/integration-sdk-testing": "^6.0.0"
+  },
+  "dependencies": {
+    "@types/node-fetch": "^2.5.10",
+    "node-fetch": "^2.6.1"
   }
 }

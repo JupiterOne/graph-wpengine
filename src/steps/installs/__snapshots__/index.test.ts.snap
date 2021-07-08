@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchInstalls should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Account",
+      ],
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            "name": "j1inc",
+          },
+        },
+      ],
+      "_type": "wp_engine_account",
+      "createdOn": undefined,
+      "displayName": "j1inc",
+      "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "name": "j1inc",
+    },
+    Object {
+      "_class": Array [
+        "Host",
+      ],
+      "_key": "wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "account": Object {
+              "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            },
+            "id": "4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+            "installs": Array [
+              Object {
+                "cname": "jupiterone.wpengine.com",
+                "environment": "production",
+                "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+                "is_multisite": false,
+                "name": "jupiterone",
+                "php_version": "7.3",
+              },
+            ],
+            "name": "jupiterone",
+          },
+        },
+      ],
+      "_type": "wp_engine_site",
+      "createdOn": undefined,
+      "displayName": "jupiterone",
+      "id": "4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "name": "jupiterone",
+    },
+    Object {
+      "_class": Array [
+        "Application",
+      ],
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "account": Object {
+              "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            },
+            "cname": "jupiterone.wpengine.com",
+            "environment": "production",
+            "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+            "is_multisite": false,
+            "name": "jupiterone",
+            "php_version": "7.3",
+            "primary_domain": "jupiterone.com",
+            "site": Object {
+              "id": "4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+            },
+            "stable_ips": null,
+            "status": "active",
+          },
+        },
+      ],
+      "_type": "wp_engine_install",
+      "active": true,
+      "cname": "jupiterone.wpengine.com",
+      "createdOn": undefined,
+      "displayName": "jupiterone",
+      "environment": "production",
+      "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "isMultisite": false,
+      "name": "jupiterone",
+      "phpVersion": "7.3",
+      "primaryDomain": "jupiterone.com",
+      "stableIps": Array [],
+      "status": "active",
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1|has|wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_toEntityKey": "wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_type": "wp_engine_account_has_site",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+      "_key": "wp_engine_account:77815c5d-e25c-41a3-ba2d-29f8ceb82ac1|has|wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_toEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_type": "wp_engine_account_has_install",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+      "_key": "wp_engine_site:4d91f2dd-9743-421e-9bcf-20dcf0a195b2|has|wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_toEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_type": "wp_engine_site_has_install",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "wp_engine_account",
+    "wp_engine_site",
+    "wp_engine_account_has_site",
+    "wp_engine_install",
+    "wp_engine_account_has_install",
+    "wp_engine_site_has_install",
+  ],
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 3,
+}
+`;

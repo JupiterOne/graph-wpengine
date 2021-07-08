@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchUser should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "User",
+      ],
+      "_key": "wp_engine_user:3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "email": "stefan@creativice.com",
+            "first_name": "Stefan",
+            "id": "3937869a-09a0-4198-a1c7-d70c451c24fc",
+            "last_name": "Virag",
+          },
+        },
+      ],
+      "_type": "wp_engine_user",
+      "createdOn": undefined,
+      "displayName": "Stefan Virag",
+      "email": "stefan@creativice.com",
+      "firstName": "Stefan",
+      "id": "3937869a-09a0-4198-a1c7-d70c451c24fc",
+      "lastName": "Virag",
+      "name": "Stefan Virag",
+      "username": "stefan@creativice.com",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "wp_engine_user",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;

@@ -1,36 +1,22 @@
-import http from 'http';
+import fetch, { Response } from 'node-fetch';
 
-import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthenticationError,
+} from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
+import {
+  PaginatedResource,
+  PageIteratee,
+  WpEngineUser,
+  WpEngineAccount,
+  WpEngineSite,
+  WpEngineInstall,
+  WpEngineDomain,
+} from './types';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
-
-// Providers often supply types with their API libraries.
-
-type AcmeUser = {
-  id: string;
-  name: string;
-};
-
-type AcmeGroup = {
-  id: string;
-  name: string;
-  users?: Pick<AcmeUser, 'id'>[];
-};
-
-// Those can be useful to a degree, but often they're just full of optional
-// values. Understanding the response data may be more reliably accomplished by
-// reviewing the API response recordings produced by testing the wrapper client
-// (below). However, when there are no types provided, it is necessary to define
-// opaque types for each resource, to communicate the records that are expected
-// to come from an endpoint and are provided to iterating functions.
-
-/*
-import { Opaque } from 'type-fest';
-export type AcmeUser = Opaque<any, 'AcmeUser'>;
-export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
-*/
 
 /**
  * An APIClient maintains authentication state and provides an interface to
@@ -43,104 +29,140 @@ export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
 export class APIClient {
   constructor(readonly config: IntegrationConfig) {}
 
-  public async verifyAuthentication(): Promise<void> {
-    // TODO make the most light-weight request possible to validate
-    // authentication works with the provided credentials, throw an err if
-    // authentication fails
-    const request = new Promise<void>((resolve, reject) => {
-      http.get(
-        {
-          hostname: 'localhost',
-          port: 443,
-          path: '/api/v1/some/endpoint?limit=1',
-          agent: false,
-          timeout: 10,
-        },
-        (res) => {
-          if (res.statusCode !== 200) {
-            reject(new Error('Provider authentication failed'));
-          } else {
-            resolve();
-          }
-        },
-      );
-    });
+  private readonly paginateEntitiesPerPage = 10;
 
+  private withBaseUri(path: string): string {
+    return `https://api.wpengineapi.com/v1/${path}`;
+  }
+
+  private async request(
+    uri: string,
+    method: 'GET' | 'HEAD' = 'GET',
+  ): Promise<Response> {
+    const response = await fetch(uri, {
+      method,
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Basic ${Buffer.from(
+          `${this.config.wpEngineUsername}:${this.config.wpEnginePassword}`,
+        ).toString('base64')}`,
+      },
+    });
+    if (!response.ok) {
+      throw new IntegrationProviderAPIError({
+        endpoint: uri,
+        status: response.status,
+        statusText: response.statusText,
+      });
+    }
+    return response;
+  }
+
+  private async paginatedRequest<T>(
+    uri: string,
+    pageIteratee: PageIteratee<T>,
+  ): Promise<void> {
+    let body: PaginatedResource<T>;
+    let endpoint = this.withBaseUri(
+      `${uri}?limit=${this.paginateEntitiesPerPage}&offset=0`,
+    );
+
+    do {
+      const response = await this.request(endpoint, 'GET');
+      body = await response.json();
+
+      await pageIteratee(body.results);
+
+      endpoint = body.next;
+    } while (body.next);
+  }
+
+  public async verifyAuthentication(): Promise<void> {
+    const sitesApiRoute = this.withBaseUri('sites');
     try {
-      await request;
+      await this.request(sitesApiRoute, 'GET');
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
-        cause: err,
-        endpoint: 'https://localhost/api/v1/some/endpoint?limit=1',
-        status: err.status,
-        statusText: err.statusText,
+        endpoint: sitesApiRoute,
+        status: err.code,
+        statusText: err.message,
       });
     }
   }
 
-  /**
-   * Iterates each user resource in the provider.
-   *
-   * @param iteratee receives each resource to produce entities/relationships
-   */
-  public async iterateUsers(
-    iteratee: ResourceIteratee<AcmeUser>,
-  ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
-
-    const users: AcmeUser[] = [
-      {
-        id: 'acme-user-1',
-        name: 'User One',
-      },
-      {
-        id: 'acme-user-2',
-        name: 'User Two',
-      },
-    ];
-
-    for (const user of users) {
-      await iteratee(user);
-    }
+  public async getUser(): Promise<WpEngineUser> {
+    const response = await this.request(this.withBaseUri('user'));
+    return response.json();
   }
 
   /**
-   * Iterates each group resource in the provider.
+   * Iterates each account resource in the provider.
    *
    * @param iteratee receives each resource to produce entities/relationships
    */
-  public async iterateGroups(
-    iteratee: ResourceIteratee<AcmeGroup>,
+  public async iterateAccounts(
+    iteratee: ResourceIteratee<WpEngineAccount>,
   ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
-
-    const groups: AcmeGroup[] = [
-      {
-        id: 'acme-group-1',
-        name: 'Group One',
-        users: [
-          {
-            id: 'acme-user-1',
-          },
-        ],
+    await this.paginatedRequest<WpEngineAccount>(
+      'accounts',
+      async (accounts) => {
+        for (const account of accounts) {
+          await iteratee(account);
+        }
       },
-    ];
+    );
+  }
 
-    for (const group of groups) {
-      await iteratee(group);
-    }
+  /**
+   * Iterates each site resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateSites(
+    iteratee: ResourceIteratee<WpEngineSite>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineSite>('sites', async (sites) => {
+      for (const site of sites) {
+        await iteratee(site);
+      }
+    });
+  }
+
+  /**
+   * Iterates each install resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateInstalls(
+    iteratee: ResourceIteratee<WpEngineInstall>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineInstall>(
+      'installs',
+      async (installs) => {
+        for (const install of installs) {
+          await iteratee(install);
+        }
+      },
+    );
+  }
+
+  /**
+   * Iterates each domain resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateDomains(
+    installId: string,
+    iteratee: ResourceIteratee<WpEngineDomain>,
+  ): Promise<void> {
+    await this.paginatedRequest<WpEngineDomain>(
+      `/installs/${installId}/domains`,
+      async (domains) => {
+        for (const domain of domains) {
+          await iteratee(domain);
+        }
+      },
+    );
   }
 }
 

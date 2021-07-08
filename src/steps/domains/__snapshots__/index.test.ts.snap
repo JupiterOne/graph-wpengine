@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchDomains should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Application",
+      ],
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "account": Object {
+              "id": "77815c5d-e25c-41a3-ba2d-29f8ceb82ac1",
+            },
+            "cname": "jupiterone.wpengine.com",
+            "environment": "production",
+            "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+            "is_multisite": false,
+            "name": "jupiterone",
+            "php_version": "7.3",
+            "primary_domain": "jupiterone.com",
+            "site": Object {
+              "id": "4d91f2dd-9743-421e-9bcf-20dcf0a195b2",
+            },
+            "stable_ips": null,
+            "status": "active",
+          },
+        },
+      ],
+      "_type": "wp_engine_install",
+      "active": true,
+      "cname": "jupiterone.wpengine.com",
+      "createdOn": undefined,
+      "displayName": "jupiterone",
+      "environment": "production",
+      "id": "30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "isMultisite": false,
+      "name": "jupiterone",
+      "phpVersion": "7.3",
+      "primaryDomain": "jupiterone.com",
+      "stableIps": Array [],
+      "status": "active",
+    },
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "wp_engine_domain:6eac0494-51d2-49be-8da1-ea6649bb50f8",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "duplicate": false,
+            "id": "6eac0494-51d2-49be-8da1-ea6649bb50f8",
+            "name": "www.jupiterone.io",
+            "primary": false,
+            "redirect_to": Object {
+              "id": "c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+              "name": "jupiterone.com",
+            },
+          },
+        },
+      ],
+      "_type": "wp_engine_domain",
+      "createdOn": undefined,
+      "displayName": "www.jupiterone.io",
+      "domainName": "www.jupiterone.io",
+      "duplicate": false,
+      "id": "6eac0494-51d2-49be-8da1-ea6649bb50f8",
+      "name": "www.jupiterone.io",
+      "primary": false,
+      "redirectTo": "jupiterone.com",
+    },
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "wp_engine_domain:b83dbe62-1698-4834-99ea-3bf38e12866b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "duplicate": false,
+            "id": "b83dbe62-1698-4834-99ea-3bf38e12866b",
+            "name": "jupiterone.io",
+            "primary": false,
+            "redirect_to": Object {
+              "id": "c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+              "name": "jupiterone.com",
+            },
+          },
+        },
+      ],
+      "_type": "wp_engine_domain",
+      "createdOn": undefined,
+      "displayName": "jupiterone.io",
+      "domainName": "jupiterone.io",
+      "duplicate": false,
+      "id": "b83dbe62-1698-4834-99ea-3bf38e12866b",
+      "name": "jupiterone.io",
+      "primary": false,
+      "redirectTo": "jupiterone.com",
+    },
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "wp_engine_domain:0de8bdf6-2637-431c-9a2e-eb66a1f107e4",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "duplicate": false,
+            "id": "0de8bdf6-2637-431c-9a2e-eb66a1f107e4",
+            "name": "www.jupiterone.com",
+            "primary": false,
+            "redirect_to": Object {},
+          },
+        },
+      ],
+      "_type": "wp_engine_domain",
+      "createdOn": undefined,
+      "displayName": "www.jupiterone.com",
+      "domainName": "www.jupiterone.com",
+      "duplicate": false,
+      "id": "0de8bdf6-2637-431c-9a2e-eb66a1f107e4",
+      "name": "www.jupiterone.com",
+      "primary": false,
+      "redirectTo": undefined,
+    },
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "wp_engine_domain:c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "duplicate": false,
+            "id": "c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+            "name": "jupiterone.com",
+            "primary": true,
+            "redirect_to": Object {},
+          },
+        },
+      ],
+      "_type": "wp_engine_domain",
+      "createdOn": undefined,
+      "displayName": "jupiterone.com",
+      "domainName": "jupiterone.com",
+      "duplicate": false,
+      "id": "c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+      "name": "jupiterone.com",
+      "primary": true,
+      "redirectTo": undefined,
+    },
+    Object {
+      "_class": Array [
+        "Domain",
+      ],
+      "_key": "wp_engine_domain:d1806903-21cd-4493-9dba-17968f347ffe",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "duplicate": false,
+            "id": "d1806903-21cd-4493-9dba-17968f347ffe",
+            "name": "jupiterone.wpengine.com",
+            "primary": false,
+            "redirect_to": Object {},
+          },
+        },
+      ],
+      "_type": "wp_engine_domain",
+      "createdOn": undefined,
+      "displayName": "jupiterone.wpengine.com",
+      "domainName": "jupiterone.wpengine.com",
+      "duplicate": false,
+      "id": "d1806903-21cd-4493-9dba-17968f347ffe",
+      "name": "jupiterone.wpengine.com",
+      "primary": false,
+      "redirectTo": undefined,
+    },
+  ],
+  "collectedRelationships": Array [
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b|has|wp_engine_domain:6eac0494-51d2-49be-8da1-ea6649bb50f8",
+      "_toEntityKey": "wp_engine_domain:6eac0494-51d2-49be-8da1-ea6649bb50f8",
+      "_type": "wp_engine_install_has_domain",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b|has|wp_engine_domain:b83dbe62-1698-4834-99ea-3bf38e12866b",
+      "_toEntityKey": "wp_engine_domain:b83dbe62-1698-4834-99ea-3bf38e12866b",
+      "_type": "wp_engine_install_has_domain",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b|has|wp_engine_domain:0de8bdf6-2637-431c-9a2e-eb66a1f107e4",
+      "_toEntityKey": "wp_engine_domain:0de8bdf6-2637-431c-9a2e-eb66a1f107e4",
+      "_type": "wp_engine_install_has_domain",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b|has|wp_engine_domain:c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+      "_toEntityKey": "wp_engine_domain:c2663ce5-e1bf-42d3-8b78-89b032f1dd03",
+      "_type": "wp_engine_install_has_domain",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b",
+      "_key": "wp_engine_install:30c47931-a91d-468a-a5dc-b9711f06c60b|has|wp_engine_domain:d1806903-21cd-4493-9dba-17968f347ffe",
+      "_toEntityKey": "wp_engine_domain:d1806903-21cd-4493-9dba-17968f347ffe",
+      "_type": "wp_engine_install_has_domain",
+      "displayName": "HAS",
+    },
+  ],
+  "encounteredTypes": Array [
+    "wp_engine_install",
+    "wp_engine_domain",
+    "wp_engine_install_has_domain",
+  ],
+  "numCollectedEntities": 6,
+  "numCollectedRelationships": 5,
+}
+`;
