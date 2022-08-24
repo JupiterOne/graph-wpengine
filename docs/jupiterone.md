@@ -1,4 +1,4 @@
-# WordPress Engine 
+# WordPress Engine
 
 ## WordPress Engine + JupiterOne Integration Benefits
 
